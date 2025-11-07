@@ -1,5 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { title } from 'node:process';
 
 // 1. กำหนด Schema
 const typeDefs = `#graphql
@@ -11,8 +12,14 @@ const typeDefs = `#graphql
     avatar: String!
   }
 
+  type About {
+    title: String!
+    description: String!
+  }
+
   type Query {
     contacts: [Contact!]!
+    about: [About!]!
   }
 `;
 
@@ -41,10 +48,20 @@ const contacts = [
   },
 ];
 
+const About = [
+  {
+    id: '1',
+    title: 'เกี่ยวกับเรา',
+    description: 'My storybook นี้เป็น project สำหรับการฝึกใช้ Storybook, GraphQL และการเขียนแบบ Components',
+  },
+];
+
+
 // 3. Resolver
 const resolvers = {
   Query: {
     contacts: () => contacts,
+    about: () => About
   },
 };
 
@@ -58,4 +75,4 @@ const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
 });
 
-console.log(`🚀 Server ready at: ${url}`);
+console.log(` Server ready at: ${url}`);
