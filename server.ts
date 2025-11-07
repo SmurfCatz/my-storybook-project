@@ -176,7 +176,8 @@ const resolvers = {
         id: String(blogs.length + 1),
         title,
         content,
-        coverImage: coverImage || '',
+        // 👇 ถ้าไม่มี coverImage ให้สุ่ม
+        coverImage: coverImage || `https://picsum.photos/600/300?random=${Math.floor(Math.random() * 1000)}`,
         createdAt: new Date().toISOString(),
         updatedAt: null,
         authorId,
@@ -184,7 +185,6 @@ const resolvers = {
       };
 
       blogs.push(newBlog);
-
       return {
         ...newBlog,
         author: authors.find((a) => a.id === authorId),
