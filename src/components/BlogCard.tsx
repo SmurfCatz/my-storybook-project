@@ -1,4 +1,3 @@
-import React from 'react';
 
 interface BlogCardProps {
   title: string;
@@ -18,8 +17,9 @@ export default function BlogCard({
   createdAt,
 }: BlogCardProps) {
   return (
-    <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 max-w-sm">
-      <div className="w-full h-48">
+    <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 h-full flex flex-col">
+
+      <div className="p-4 flex-grow">
         <img
           src={coverImage}
           alt={title}

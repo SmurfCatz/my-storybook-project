@@ -12,7 +12,7 @@ const Carousel: React.FC<CarouselProps> = ({ count = 5 }) => {
   if (images.length === 0) return <p>Loading...</p>;
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-2xl shadow-lg">
+    <div className="relative w-full max-w-6xl mx-auto overflow-hidden rounded-2xl shadow-lg">
       <img
         src={images[current]}
         alt={`Slide ${current + 1}`}
