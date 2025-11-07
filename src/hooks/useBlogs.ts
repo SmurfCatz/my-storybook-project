@@ -4,9 +4,13 @@ import { useState, useEffect } from "react";
 export interface Blog {
   id: string;
   title: string;
-  excerpt: string;
+  content: string;
   coverImage: string;
-  author: string;
+  author: {
+    id: string;
+    name: string;
+    avatar?: string;
+  };
   tags?: string[];
   createdAt: string;
 }
@@ -14,49 +18,51 @@ export interface Blog {
 export function useBlogs() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const mockBlogs: Blog[] = [
-      {
-        id: "1",
-        title: "เริ่มต้นกับ GraphQL",
-        excerpt:
-          "GraphQL คือภาษาสำหรับ query API ที่ช่วยให้ client ขอข้อมูลเฉพาะที่ต้องการได้...",
-        coverImage: "https://picsum.photos/400/250?random=1",
-        author: "ธานอส",
-        tags: ["GraphQL", "API", "Backend"],
-        createdAt: "2025-11-07T10:00:00Z",
-      },
-      {
-        id: "2",
-        title: "Storybook คืออะไร?",
-        excerpt:
-          "Storybook เป็นเครื่องมือที่ช่วยให้เราพัฒนา UI Components ได้อย่างอิสระ...",
-        coverImage: "https://picsum.photos/400/250?random=2",
-        author: "กิตติชัย",
-        tags: ["React", "UI", "Testing"],
-        createdAt: "2025-11-06T15:00:00Z",
-      },
-      {
-        id: "3",
-        title: "พื้นฐาน Tailwind CSS",
-        excerpt:
-          "Tailwind CSS คือ utility-first framework ที่ช่วยให้การจัดการ style ใน React ง่ายขึ้น...",
-        coverImage: "https://picsum.photos/400/250?random=3",
-        author: "วรัญญา",
-        tags: ["Tailwind", "CSS", "Frontend"],
-        createdAt: "2025-11-05T09:30:00Z",
-      },
-    ];
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch("http://localhost:4000", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: `
+              query {
+                blogs {
+                  id
+                  title
+                  content
+                  coverImage
+                  createdAt
+                  author {
+                    id
+                    name
+                    avatar
+                  }
+                  tags
+                }
+              }
+            `,
+          }),
+        });
 
-    // จำลอง delay เพื่อให้มีสถานะ loading
-    const timer = setTimeout(() => {
-      setBlogs(mockBlogs);
-      setLoading(false);
-    }, 500);
+        const json = await res.json();
 
-    return () => clearTimeout(timer);
+        if (json.errors) {
+          throw new Error(json.errors[0].message);
+        }
+
+        setBlogs(json.data.blogs);
+      } catch (err: any) {
+        setError(err.message || "ไม่สามารถโหลดข้อมูลได้");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
   }, []);
 
-  return { blogs, loading };
+  return { blogs, loading, error };
 }
