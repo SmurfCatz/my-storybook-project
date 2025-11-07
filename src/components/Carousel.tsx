@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useCarousel } from '../hooks/useCarousel'; // ปรับ path ตามโครงสร้างโปรเจกต์
+import { useCarousel } from '../hooks/useCarousel';
 
 interface CarouselProps {
   count?: number;
