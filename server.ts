@@ -1,6 +1,5 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { title } from 'node:process';
 
 // 1. กำหนด Schema
 const typeDefs = `#graphql
