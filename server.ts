@@ -1,5 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { CURRENT_USER_ID } from './src/lib/auth.ts';
+
 
 // 1. กำหนด Schema
 const typeDefs = `#graphql
@@ -53,14 +55,10 @@ const typeDefs = `#graphql
       tags: [String!]
     ): Blog!
 
-    updateBlog(
-      id: ID!
-      title: String
-      content: String
-      coverImage: String
-      tags: [String]
-    ): Blog!
+    deleteBlog(id: ID!): Boolean!
   }
+
+
 `;
 
 // 2. ข้อมูลจำลอง
@@ -123,14 +121,6 @@ type CreateBlogArgs = {
   tags?: string[];
 };
 
-type UpdateBlogArgs = {
-  id: string;
-  title?: string;
-  content?: string;
-  coverImage?: string;
-  tags?: string[];
-};
-
 type BlogType = {
   id: string;
   title: string;
@@ -176,7 +166,7 @@ const resolvers = {
         id: String(blogs.length + 1),
         title,
         content,
-        // 👇 ถ้าไม่มี coverImage ให้สุ่ม
+        // ถ้าไม่มี coverImage ให้สุ่ม
         coverImage: coverImage || `https://picsum.photos/600/300?random=${Math.floor(Math.random() * 1000)}`,
         createdAt: new Date().toISOString(),
         updatedAt: null,
@@ -191,25 +181,17 @@ const resolvers = {
       };
     },
 
-    updateBlog: (_: unknown, { id, title, content, coverImage, tags }: UpdateBlogArgs) => {
-      const blogIndex = blogs.findIndex((b) => b.id === id);
-      if (blogIndex === -1) throw new Error('ไม่พบบทความ');
+    deleteBlog: (_: unknown, { id }: { id: string }) => {
+      const blogIndex = blogs.findIndex(b => b.id === id);
+      if (blogIndex === -1) return false;
 
-      const updatedBlog = {
-        ...blogs[blogIndex],
-        title: title ?? blogs[blogIndex].title,
-        content: content ?? blogs[blogIndex].content,
-        coverImage: coverImage ?? blogs[blogIndex].coverImage,
-        tags: tags ?? blogs[blogIndex].tags,
-        updatedAt: new Date().toISOString(),
-      };
+      // ตรวจสอบสิทธิ์: ต้องเป็นเจ้าของเท่านั้น
+      if (blogs[blogIndex].authorId !== CURRENT_USER_ID) {
+        throw new Error("คุณไม่มีสิทธิ์ลบบทความนี้");
+      }
 
-      blogs[blogIndex] = updatedBlog;
-
-      return {
-        ...updatedBlog,
-        author: authors.find((a) => a.id === updatedBlog.authorId),
-      };
+      blogs.splice(blogIndex, 1);
+      return true;
     },
   },
 };

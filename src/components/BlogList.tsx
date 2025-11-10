@@ -21,12 +21,16 @@ export default function BlogList() {
         {blogs.map((blog) => (
           <BlogCard
             key={blog.id}
+            id={blog.id}
             title={blog.title}
             excerpt={blog.content}
             coverImage={blog.coverImage}
-            author={blog.author.name}
+            author={blog.author}
             tags={blog.tags}
             createdAt={blog.createdAt}
+            onDeleted={() => {
+              window.location.reload();
+            }}
           />
         ))}
       </div>
