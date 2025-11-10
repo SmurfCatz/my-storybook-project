@@ -2,6 +2,7 @@ import { useDeleteBlog } from "../hooks/useDeleteBlog";
 import { useState } from "react";
 import { CURRENT_USER_ID } from "../lib/auth";
 
+
 interface BlogCardProps {
   id: string;
   title: string;
@@ -25,6 +26,7 @@ export default function BlogCard({
 }: BlogCardProps) {
   const { deleteBlog, loading } = useDeleteBlog(onDeleted);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const isOwner = author.id === CURRENT_USER_ID;
 
@@ -38,8 +40,20 @@ export default function BlogCard({
   return (
     <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 h-full flex flex-col relative">
       {/* รูปปก */}
-      <div className="p-4 flex-grow">
-        <img src={coverImage} alt={title} className="w-full h-48 object-cover rounded-lg" />
+      <div className="p-4 relative">
+        {/* Skeleton สำหรับรูป */}
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-gray-300 rounded-lg animate-pulse" />
+        )}
+        <img
+          src={`${coverImage}?blur=2&width=600`}
+          alt={title}
+          className={`w-full h-48 object-cover rounded-lg transition-opacity duration-300 ${
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+        />
       </div>
 
       {/* เนื้อหา */}
