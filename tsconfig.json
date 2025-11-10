@@ -25,6 +25,6 @@
     ".storybook",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/lib"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
