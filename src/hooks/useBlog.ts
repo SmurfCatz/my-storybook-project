@@ -1,4 +1,4 @@
-// src/hooks/useBlogs.ts
+// src/hooks/useBlog.ts
 import { useState, useEffect } from "react";
 
 export interface Blog {
@@ -11,21 +11,21 @@ export interface Blog {
   createdAt: string;
 }
 
-export function useBlogs() {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+export function useBlog(id: string) {
+  const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchBlog = async () => {
       try {
         const res = await fetch("http://localhost:4000", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: `
-              query {
-                blogs {
+              query Blog($id: ID!) {
+                blog(id: $id) {
                   id
                   title
                   content
@@ -40,22 +40,24 @@ export function useBlogs() {
                 }
               }
             `,
+            variables: { id },
           }),
         });
 
         const json = await res.json();
         if (json.errors) throw new Error(json.errors[0].message);
+        if (!json.data.blog) throw new Error("ไม่พบบทความ");
 
-        setBlogs(json.data.blogs || []);
+        setBlog(json.data.blog);
       } catch (err: any) {
-        setError(err.message || "ไม่สามารถโหลดข้อมูลได้");
+        setError(err.message || "โหลดข้อมูลไม่ได้");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBlogs();
-  }, []);
+    fetchBlog();
+  }, [id]);
 
-  return { blogs, loading, error };
+  return { blog, loading, error };
 }
