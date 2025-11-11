@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CURRENT_USER_ID } from "../lib/auth";
 
 export function useDeleteBlog(onSuccess?: () => void) {
   const [loading, setLoading] = useState(false);
