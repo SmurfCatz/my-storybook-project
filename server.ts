@@ -78,6 +78,7 @@ const about = [
 const authors = [
   { id: '1', name: 'ธานอส สมบัติพูน', bio: 'นักพัฒนาเว็บผู้ชื่นชอบ GraphQL และ React', avatar: 'https://i.pravatar.cc/150?img=3' },
   { id: '2', name: 'กิตติชัย สุนทร', bio: 'Frontend Developer ที่หลงใหลใน TypeScript และ Storybook', avatar: 'https://i.pravatar.cc/150?img=4' },
+  { id: '3', name: 'วรัญญา ภักดีผล', bio: 'UI/UX Designer ที่สนใจการพัฒนา UI/UX ที่ดี', avatar: 'https://i.pravatar.cc/150?img=5' },
 ];
 
 let blogs: BlogType[] = [
