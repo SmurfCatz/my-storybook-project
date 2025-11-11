@@ -1,25 +1,16 @@
 // src/hooks/useBlogs.ts
 import { useState, useEffect } from "react";
-
-export interface Blog {
-  id: string;
-  title: string;
-  content: string;
-  coverImage: string;
-  author: { id: string; name: string; avatar?: string };
-  tags?: string[];
-  createdAt: string;
-}
+import { GRAPHQL_ENDPOINT } from "../lib/api";
 
 export function useBlogs() {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs, setBlogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch("http://localhost:4000", {
+        const res = await fetch(GRAPHQL_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -45,7 +36,6 @@ export function useBlogs() {
 
         const json = await res.json();
         if (json.errors) throw new Error(json.errors[0].message);
-
         setBlogs(json.data.blogs || []);
       } catch (err: any) {
         setError(err.message || "ไม่สามารถโหลดข้อมูลได้");

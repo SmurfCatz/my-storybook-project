@@ -1,5 +1,6 @@
 import Carousel from "./Carousel";
 import BlogList from "./BlogList";
+import { Outlet } from "react-router-dom";
 
 export default function Home() {
 
@@ -15,6 +16,8 @@ export default function Home() {
       <div className="mt-8">
         <BlogList  />
       </div>
+
+      <Outlet />
     </div>
   );
 }

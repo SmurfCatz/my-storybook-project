@@ -1,5 +1,6 @@
 // src/hooks/useBlog.ts
 import { useState, useEffect } from "react";
+import { GRAPHQL_ENDPOINT } from "../lib/api";
 
 export interface Blog {
   id: string;
@@ -19,7 +20,7 @@ export function useBlog(id: string) {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await fetch("http://localhost:4000", {
+        const res = await fetch(GRAPHQL_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
