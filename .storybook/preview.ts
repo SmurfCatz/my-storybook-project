@@ -1,24 +1,21 @@
-import type { Preview } from '@storybook/react-vite'
+// .storybook/preview.ts
+import type { Preview } from '@storybook/react-vite';
+import { initialize, mswLoader } from 'msw-storybook-addon';
 import '../src/index.css';
+
+initialize({
+  onUnhandledRequest: 'bypass',
+  serviceWorker: {
+    url: '/mockServiceWorker.js',
+  },
+});
 
 const preview: Preview = {
   parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
-
-    experimental_interactions: true,
-
-    a11y: {
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
-      test: 'todo'
-    }
+    controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
+    a11y: { test: 'todo' },
   },
+  loaders: [mswLoader],
 };
 
 export default preview;
