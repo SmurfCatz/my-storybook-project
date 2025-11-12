@@ -1,7 +1,8 @@
+// src/components/About.tsx
 import { useAbout } from "../hooks/useAbout";
 
 export default function About() {
-  const { About, loading } = useAbout();
+  const { about, loading, error } = useAbout(); // เปลี่ยน About → about
 
   if (loading) {
     return (
@@ -11,14 +12,30 @@ export default function About() {
     );
   }
 
-   return (
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <p className="text-red-600">เกิดข้อผิดพลาด: {error}</p>
+      </div>
+    );
+  }
+
+  if (about.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <p className="text-gray-500">ไม่พบข้อมูลเกี่ยวกับเรา</p>
+      </div>
+    );
+  }
+
+  return (
     <section className="p-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
         เกี่ยวกับเรา
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {About.map((item) => (
+        {about.map((item) => (
           <div
             key={item.title}
             className="border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow bg-white"
