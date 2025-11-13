@@ -22,7 +22,6 @@ const mockAbout = [
 const meta = {
   title: 'Components/About',
   component: About,
-  tags: ['autodocs'],
   parameters: {
     msw: {
       handlers: [

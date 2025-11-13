@@ -32,7 +32,6 @@ const mockContacts = [
 const meta = {
   title: 'Components/Contact',
   component: Contact,
-  tags: ['autodocs'],
   parameters: {
     msw: {
       handlers: [

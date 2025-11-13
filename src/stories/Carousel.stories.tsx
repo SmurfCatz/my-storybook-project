@@ -5,7 +5,6 @@ import { expect, within, waitFor } from 'storybook/test';
 const meta = {
   title: 'Components/Carousel',
   component: Carousel,
-  tags: ['autodocs'],
 } satisfies Meta<typeof Carousel>;
 
 export default meta;

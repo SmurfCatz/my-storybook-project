@@ -6,7 +6,6 @@ import { expect, userEvent, within } from 'storybook/test';
 const meta = {
   title: 'Components/TabBar',
   component: TabBar,
-  tags: ['autodocs'],
   decorators: [
     (Story) => {
       const { currentPage, changePage } = useTabState();

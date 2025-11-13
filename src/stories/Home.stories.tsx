@@ -5,7 +5,6 @@ import { expect, within } from 'storybook/test';
 const meta = {
   title: 'Components/Home',
   component: Home,
-  tags: ['autodocs'],
 } satisfies Meta<typeof Home>;
 
 export default meta;
@@ -25,8 +24,3 @@ export const Default: Story = {
     expect(images.length).toBeGreaterThan(0);
   },
 };
-
-
-
- 
- 
