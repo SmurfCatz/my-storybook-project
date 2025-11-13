@@ -9,7 +9,7 @@ const meta = {
   title: 'Components/TabBar',
   component: TabBar,
   decorators: [
-    (Story, context) => {
+    (Story,) => {
       const { currentPage, changePage } = useTabState();
 
       // ตั้งค่า path ตาม currentPage
