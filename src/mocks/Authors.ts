@@ -1,5 +1,5 @@
-// src/mocks/data.ts
-export const MOCK_CONTACTS = [
+// src/mocks/Authors.ts
+export const mockAuthors = [
   {
     id: '1',
     name: 'ธานอส สมบัติพูน',
@@ -22,3 +22,4 @@ export const MOCK_CONTACTS = [
     avatar: 'https://picsum.photos/100?random=3',
   },
 ];
+
