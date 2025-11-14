@@ -31,7 +31,7 @@ export default function BlogCard({
   const isOwner = author.id === CURRENT_USER_ID;
 
   return (
-    <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 h-full flex flex-col relative">
+    <div data-testid="blog-card" className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 h-full flex flex-col relative">
       <Link to={`/blog/${id}`} className="block">
         {/* ภาพปก - เงื่อนไขแสดง */}
         {coverImage ? (
@@ -92,7 +92,7 @@ export default function BlogCard({
         </div>
 
         <div data-testid="blog-meta" className="mt-3 text-xs text-gray-500">
-          เขียนโดย {author.name} •{" "}
+          เขียนโดย <span data-testid="blog-author">{author.name}</span> •{" "}
           {new Date(createdAt).toLocaleDateString("th-TH")}
         </div>
       </div>
