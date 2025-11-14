@@ -27,15 +27,6 @@ const config: StorybookConfig = {
     };
     return config;
   },
-
-  async previewAnnotations(entry = []) {
-    try {
-      const mswPreviewPath = await import.meta.resolve('msw-storybook-addon/preview.js');
-      return [...entry, mswPreviewPath];
-    } catch {
-      return entry;
-    }
-  },
 };
 
 export default config;
