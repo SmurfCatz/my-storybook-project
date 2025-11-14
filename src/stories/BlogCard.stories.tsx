@@ -1,9 +1,9 @@
-// src/components/BlogCard.stories.tsx
+// src/stories/BlogCard.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect } from 'storybook/test';
 import BlogCard from '../components/BlogCard';
 import { MemoryRouter } from 'react-router-dom';
-import type { BlogCardProps } from '../components/BlogCard';
+import { baseBlog } from '../mocks/baseBlog';
 
 const meta = {
   title: 'Components/BlogCard',
@@ -28,16 +28,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// ถูกต้อง: ใช้ type แทน as const
-const baseBlog: BlogCardProps = {
-  id: '1',
-  title: 'เริ่มต้นกับ GraphQL ใน React',
-  excerpt: 'GraphQL คือภาษาสำหรับ query API ที่ช่วยให้ client ขอข้อมูลเฉพาะที่ต้องการได้...',
-  coverImage: 'https://picsum.photos/600/300?random=10',
-  author: { id: '1', name: 'ธานอส สมบัติพูน' },
-  tags: ['GraphQL', 'React'],
-  createdAt: '2025-04-05T10:00:00Z',
-};
 
 export const Default: Story = {
   args: baseBlog,

@@ -3,31 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect, waitFor, userEvent } from 'storybook/test';
 import { http, HttpResponse, delay } from 'msw';
 import Contact from '../components/Contact';
+import { mockAuthors } from '../mocks/Authors';
 
-// Mock ข้อมูล
-const mockContacts = [
-  {
-    id: '1',
-    name: 'ธานอส สมบัติพูน',
-    phone: '081-234-5678',
-    position: 'ผู้ดูแลระบบ',
-    avatar: 'https://picsum.photos/100?random=1',
-  },
-  {
-    id: '2',
-    name: 'กิตติชัย สุนทร',
-    phone: '082-987-6543',
-    position: 'นักพัฒนา',
-    avatar: 'https://picsum.photos/100?random=2',
-  },
-  {
-    id: '3',
-    name: 'วรัญญา ภักดีผล',
-    phone: '083-456-7890',
-    position: 'นักออกแบบ UI/UX',
-    avatar: 'https://picsum.photos/100?random=3',
-  },
-];
 
 const meta = {
   title: 'Components/Contact',
@@ -37,7 +14,7 @@ const meta = {
       handlers: [
         http.post('http://localhost:4001/graphql', () => {
           return HttpResponse.json({
-            data: { contacts: mockContacts },
+            data: { contacts: mockAuthors },
           });
         }),
       ],
@@ -92,7 +69,7 @@ export const Loading: Story = {
           await delay(5000);
           console.log('[MSW] Sending response');
           return HttpResponse.json({
-            data: { contacts: mockContacts },
+            data: { contacts: mockAuthors },
           });
         }),
       ],

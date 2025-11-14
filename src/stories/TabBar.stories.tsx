@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import TabBar from '../components/TabBar';
 import { useTabState, Pages } from '../hooks/useTabState';
 import { expect, userEvent, within } from 'storybook/test';
-import { MemoryRouter } from 'react-router-dom'; // เพิ่ม
+import { MemoryRouter } from 'react-router-dom';
 
 const meta = {
   title: 'Components/TabBar',
