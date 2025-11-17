@@ -7,8 +7,10 @@ export default function Home() {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold text-gray-800">หน้าหลัก</h2>
-      <p className="mt-2 text-gray-600">ยินดีต้อนรับเข้าสู่ Storybook</p>
+      <h1 className="text-4xl font-bold">หน้าหลัก</h1>
+      <h2 data-testid="welcome-title" className="text-2xl mt-4">
+        ยินดีต้อนรับเข้าสู่ Storybook
+      </h2>
 
       <div className="mt-4">
         <Carousel count={5} />
