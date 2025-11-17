@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, expect } from 'storybook/test';
 import SearchBar from '../components/SearchBar';
 import { fn } from 'storybook/test';
-import { mockAuthors } from '../mocks/Authors';
-import { mockTags } from '../mocks/Tags';
+import { mockAuthors,mockTags } from '../mocks/mockData';
 
 
 const meta = {

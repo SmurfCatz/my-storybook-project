@@ -3,8 +3,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, waitFor, expect } from 'storybook/test';
 import BlogList from '../components/BlogList';
 import { MemoryRouter } from 'react-router-dom';
-import { http, HttpResponse, delay } from 'msw';
-import { GRAPHQL_ENDPOINT } from '../lib/api';
 import { loadingThenSuccessHandler } from '../mocks/handlers';
 
 const meta = {

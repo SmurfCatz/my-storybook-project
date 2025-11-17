@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect } from 'storybook/test';
 import BlogCard from '../components/BlogCard';
 import { MemoryRouter } from 'react-router-dom';
-import { baseBlog } from '../mocks/baseBlog';
+import { baseBlog } from '../mocks/mockData';
 
 const meta = {
   title: 'Components/BlogCard',

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect, waitFor, userEvent } from 'storybook/test';
 import { http, HttpResponse, delay } from 'msw';
 import Contact from '../components/Contact';
-import { mockAuthors } from '../mocks/Authors';
+import { mockAuthors } from '../mocks/mockData';
 
 
 const meta = {
