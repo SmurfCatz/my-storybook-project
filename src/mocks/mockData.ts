@@ -1,5 +1,6 @@
 // src/mocks/mockData.ts
 import { Blog } from '../hooks/useSearchBlogs';
+import type { BlogCardProps } from '../components/BlogCard';
 
 export const mockBlogs: Blog[] = [
   {
@@ -30,3 +31,40 @@ export const mockBlogs: Blog[] = [
     tags: ['TypeScript', 'Frontend'],
   },
 ];
+
+export const baseBlog: BlogCardProps = {
+  id: '1',
+  title: 'เริ่มต้นกับ GraphQL ใน React',
+  excerpt: 'GraphQL คือภาษาสำหรับ query API ที่ช่วยให้ client ขอข้อมูลเฉพาะที่ต้องการได้...',
+  coverImage: 'https://picsum.photos/600/300?random=10',
+  author: { id: '1', name: 'ธานอส สมบัติพูน' },
+  tags: ['GraphQL', 'React'],
+  createdAt: '2025-04-05T10:00:00Z',
+};
+
+export const mockTags = ['React', 'TypeScript', 'GraphQL', 'Frontend', 'Backend'];
+
+export const mockAuthors = [
+  {
+    id: '1',
+    name: 'ธานอส สมบัติพูน',
+    phone: '081-234-5678',
+    position: 'ผู้ดูแลระบบ',
+    avatar: 'https://picsum.photos/100?random=1',
+  },
+  {
+    id: '2',
+    name: 'กิตติชัย สุนทร',
+    phone: '082-987-6543',
+    position: 'นักพัฒนา',
+    avatar: 'https://picsum.photos/100?random=2',
+  },
+  {
+    id: '3',
+    name: 'วรัญญา ภักดีผล',
+    phone: '083-456-7890',
+    position: 'นักออกแบบ UI/UX',
+    avatar: 'https://picsum.photos/100?random=3',
+  },
+];
+

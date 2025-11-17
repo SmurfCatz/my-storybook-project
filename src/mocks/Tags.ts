@@ -1,1 +1,0 @@
-export const mockTags = ['React', 'TypeScript', 'GraphQL', 'Frontend', 'Backend'];
