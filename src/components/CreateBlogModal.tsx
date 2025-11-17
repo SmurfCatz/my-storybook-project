@@ -52,15 +52,28 @@ export default function CreateBlogModal({ onCreated }: Props) {
         โพสต์
       </button>
 
-      {/* Modal */}
+      {/* Modal - ต้องครอบ error ไว้ข้างใน */}
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative">
-            <h2 className="text-xl font-bold mb-4 text-gray-800">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative"
+          >
+            <h2 id="modal-title" className="text-xl font-bold mb-4 text-gray-800">
               โพสต์บทความใหม่
             </h2>
 
-            {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+            {/* error ต้องอยู่ข้างใน modal เท่านั้น */}
+            {error && (
+              <div
+                data-testid="error-message"
+                className="bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded mb-4 text-sm"
+              >
+                {error}
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <input
@@ -98,7 +111,7 @@ export default function CreateBlogModal({ onCreated }: Props) {
                 className="w-full border rounded-lg px-3 py-2"
               />
 
-              <div className="flex justify-end gap-2 mt-4">
+              <div className="flex justify-end gap-2 mt-6">
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
@@ -108,8 +121,9 @@ export default function CreateBlogModal({ onCreated }: Props) {
                 </button>
                 <button
                   type="submit"
+                  data-testid="submit-button"
                   disabled={loading}
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+                  className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
                 >
                   {loading ? "กำลังบันทึก..." : "บันทึก"}
                 </button>
